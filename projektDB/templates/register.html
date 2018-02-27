@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% from "includes/_formhelpers.html" import render_field %}
+    <form method="POST" action="">
+        <div class="row">
+        <div class="col-lg-3">
+        <div class="form-group">
+            {{render_field(form.fname,class_ = "form-control")}}
+        </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-3">
+        <div class="form-group">
+            {{render_field(form.lname,class_ = "form-control")}}
+        </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-3">
+        <div class="form-group">
+        {{render_field(form.birth_date,class_ = "form-control")}}
+       </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-3">
+        <div class="form-group">
+       {{render_field(form.phone,class_ = "form-control")}}
+       </div>
+        </div>
+        </div>
+        <div class="row">
+       <div class="col-lg-3">
+       <div class="form-group">
+{{render_field(form.credit_card,class_ = "form-control")}}
+       </div>
+       </div>
+        </div>
+       <div class="row">
+       <div class="col-lg-3">
+       <div class="form-group">
+       {{render_field(form.password,class_ = "form-control")}}
+        </div>
+       </div>
+       </div>
+       <div class="row">
+       <div class="col-lg-3">
+       <div class="form-group">
+       {{render_field(form.confirm,class_ = "form-control")}}
+        </div>
+        </div>
+       </div>
+     <p> <input type="submit" value="Zarejestruj się" class="btn btn-primary"> </p>
+    </form>
+{% endblock body %}

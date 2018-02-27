@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block bodyArgs %} onload="init()" {% endblock bodyArgs %}
+{% block body %}
+<button class="btn btn-primary" onclick="showAvailableRooms()">Pokaz dostepne pokoje</button>
+{% if id_w == session['username'] %}
+
+<button class="btn btn-primary" onclick="showMostPayfulRooms()">Pokaz najbardziej oplacalne pokoje</button>
+<button class="btn btn-primary" onclick="showMostPickedRooms()">Pokaz najczesciej wybierane pokoje</button>
+<button class="btn btn-primary" onclick="showAddConcierge()">Dodaj konsjerza</button>
+<button class="btn btn-primary" onclick="showAddRoom()">Dodaj pokoj</button>
+<div id=addConciergeDiv>
+    <form id=myForm3>
+        <label>Imie</label><input type=text name=fnameC><br/>
+        <label>Nazwisko</label><input type=text name=lnameC><br/>
+        <label>Telefon</label><input type=integer name=phoneC><br/>
+
+    </form>
+    
+<button class="btn btn-primary" onclick="addConcierge()">Dodaj</button>
+</div>
+<div id=addConciergeResult></div>
+<div id=addRoomDiv>
+    <form id=myForm4>
+        <div class="col-lg-3">
+        <select class=form-control id=newRoomSpace>
+        <option id=1 value=1>Pokoj jednoosobowy</option>
+        <option id=2 value=2>Pokoj dwuosobowy</option>
+        <option id=3 value=3>Pokoj trzyosobowy</option>
+        <option id=4 value=4>Pokoj czterosobowy</option>
+        </select>
+
+    <label for='category'>Kategoria pokoju:</label>
+     <div class="checkbox">
+    <label><input type="checkbox" value="" name=newTv>Telewizor</label>
+    </div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=newBath>Lazienka z wanna</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=newShower>Lazienka z prysznicem</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=newBar>Barek</label>
+</div>
+<div class="checkbox">
+    <label><input type="checkbox" value"" name=newBalcony>Pokoj z balkonem</label>
+</div>
+        </div>
+    </form>
+        <div class="row"></div>
+
+        <button class="btn btn-primary" onclick="addRoom()">Dodaj</button>
+        </div>
+<div id=addRoomResult></div>
+<div id=mostPayfulRooms></div>
+<div id=mostPickedRooms></div>
+
+
+{% endif %}
+
+{% if not id_w == session['username'] %}
+<button class="btn btn-primary" onclick="showBills()">Rachunki</button>
+<button class="btn btn-primary" onclick="showRoomForm()">Zarezerwuj pokoj</button>
+<button class="btn btn-primary" onclick="showReservedRooms()">Pokaz zarezerwowane pokoje</button>
+<div id="reserveRoom">
+    <form id="myForm">
+    <div class='form-group'>
+        <div class="row">
+            <div class="col-lg-3">
+        <select class="form-control" onchange="controlBeds()" id="pokoj">
+        <option id=1 value=1>Pokoj jednoosobowy</option>
+        <option id=2 value=2>Pokoj dwuosobowy</option>
+        <option id=3 value=3>Pokoj trzyosobowy</option>
+        <option id=4 value=4>Pokoj czterosobowy</option>
+        </select>
+        <div class=ilosc_lozek>
+        <label> Ilosc lozek podwojnych </label><br/>
+        <input type=number name=a_o_b>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class='form-group'>
+    <div class="row">
+        <div class="col-lg-3">
+            <label>Data zameldowania</label><br/>
+            <small>Format: rrrr-mm-dd</small>
+            <input type='text' name=date_from>
+        </div>
+    </div>
+    </div>
+    <label>Data wymeldowania</label>
+    <div class="row">
+        <div class="col-lg-3">
+            <small>Format: rrrr-mm-dd</small>
+            <input type='text' name=date_to>
+        </div>
+    </div>
+    <div class='form-group'>
+        <div class="col-lg-3">
+        <div class="row">
+    <label for='category'>Kategoria pokoju:</label>
+     <div class="checkbox">
+    <label><input type="checkbox" value="" name=tv>Telewizor</label>
+    </div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=bath>Lazienka z wanna</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=shower>Lazienka z prysznicem</label>
+</div>
+<div class="checkbox">
+  <label><input type="checkbox" value="" name=bar>Barek</label>
+</div>
+<div class="checkbox">
+    <label><input type="checkbox" value"" name=balcony>Pokoj z balkonem</label>
+</div>
+            </div>
+        </div>
+    </div>
+    <div class='col-lg-3'>
+        <label for='additional'>Dodatkowe uslugi: </label>
+        <div class="checkbox">
+            <label><input type="checkbox" value="" name=limousine>Limuzyna</label>
+        </div>
+            <div class="checkbox">
+            <label><input type="checkbox" value="" name=taxi>Taxi</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" value="" name=breakfast>Sniadanie do pokoju</label>
+            </div>
+            <div class="checkbox">
+            <label><input type="checkbox" value="" name=cleaning>Dodatkowe sprzatanie</label>
+            </div>
+    </div>
+    <div class="row"></div>
+</form>
+    <button class="btn btn-primary" onclick="reserveRoomForm()">Rezerwuj</button> 
+<div id=result2 style="align:center"></div>
+</div>
+</div>
+<div id=reserveRoomWithNumber>
+   <form id=myForm2>
+       <div class="row">
+<div class='col-lg-3'>
+    <label>Numer pokoju: </label><input type=text name=room_nr onchange="controlBeds()"><br/>
+        <div class=ilosc_lozek2>
+        <label> Ilosc lozek podwojnych </label><br/>
+        <input type=number name=ilosc_podw>
+        </div>
+
+        <label>Data zameldowania: </label> <input type=text name=d_f><br/>
+        <label>Data wymeldowania: </label> <input type=text name=d_t><br/>
+</div>
+<div class='col-lg-3'>
+        <label for='additional'>Dodatkowe uslugi: </label>
+        <div class="checkbox">
+            <label><input type="checkbox" value="" name=limousineN>Limuzyna</label>
+        </div>
+            <div class="checkbox">
+            <label><input type="checkbox" value="" name=taxiN>Taxi</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" value="" name=breakfastN>Sniadanie do pokoju</label>
+            </div>
+            <div class="checkbox">
+            <label><input type="checkbox" value="" name=cleaningN>Dodatkowe sprzatanie</label>
+            </div>
+    </div>
+       </div>
+    </form>
+    <div class="row" align='center'>
+        <div class='col-lg-3'>
+    <button class="btn btn-primary" onclick="reserveRoomWithNumber()">Rezerwuj</button>
+        </div>
+    </div>
+    <span id=result></span>
+</div>
+<div id=result></div>
+<div id=reservedRoomsDiv></div>
+<div id=billsDiv></div>
+{% endif %}
+<div id=availableRooms></div>
+</div>
+{% endblock %}
