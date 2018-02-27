@@ -128,7 +128,7 @@ def reserveRoomForm():
                 myResult = "Pomyslne zarezerwowano pokoj o numerze {0}".format(roomNumber)
                 print(myResult)
                 return myResult
-            except psycopg2.Error,e:
+            except psycopg2.Error as e:
                 return e.diag.message_primary
         else:
             return "Nie znaleziono dostepnego pokoju w podanym terminie"
@@ -156,7 +156,7 @@ def reserveRoomWithNumber():
             conn.commit()
             conn.close()
             return "Pozytwnie zarezerwowano pokoj o numerze {0}".format(roomNumber)
-        except psycopg2.Error,e:
+        except psycopg2.Error as e:
             conn.commit()
             conn.close()
             return e.diag.message_primary
