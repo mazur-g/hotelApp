@@ -68,7 +68,7 @@ def showReservedRooms():
         conn.commit()
         conn.close()
         print(result)
-        return result
+        return result        
 
 """zwraca tabele z dostepnymi pokojami """
 def showAvailableRooms():
@@ -112,7 +112,7 @@ def reserveRoomForm():
         cur.execute(query)
         category = cur.fetchone()
         query = "SELECT dostepny_pokoj_z_data('{0}','{1}',{2},{3})".format(date_from,date_to,category[0],amount_of_people)
-        print query
+        print(query)
         cur.execute(query)
         roomNumber = cur.fetchone()[0]
         if roomNumber:
@@ -260,7 +260,7 @@ def showBills():
             result+="</tr>"
     conn.commit()
     conn.close()
-    print result
+    print(result)
     return result
 
 """placi za dany rachunek"""
@@ -301,7 +301,7 @@ def login():
         conn = psycopg2.connect("dbname='ykxpfnjf' user='ykxpfnjf' host='horton.elephantsql.com' password='KTZyWm5rnLaKh3FqoW2_XdDzz-fB_nNi'")
         cur = conn.cursor()
         query = "SELECT haslo from osoba where id = {0}".format(request.form["user"])
-        print query
+        print(query)
         cur.execute(query) 
         row = cur.fetchone() 
         conn.commit()
