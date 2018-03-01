@@ -7,8 +7,7 @@
         haslo varchar);
 
     create table klient(
-        id_klienta serial primary key,
-        nr_karty_kredytowej bigint);
+        id_klienta serial primary key);
 
     create table pokoj(
             nr_pokoju int primary key,

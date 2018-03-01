@@ -272,7 +272,7 @@ def payBills():
     cur.execute(query)
     conn.commit()
     conn.close()
-    return "Pieniadze pobrane za pomoca karty kredytowej"
+    return "Pieniadze pobrane"
 
 
 """odpowiada za odpowiednie wywolanie metody w zaleznosci od zadania"""
@@ -345,7 +345,7 @@ def register():
         print(query)
         cur.execute(query)
         row = cur.fetchone()
-        query = "insert into klient values({0},{1})".format(row[0],form.credit_card.data)
+        query = "insert into klient values({0})".format(row[0])
         print(query)
         cur.execute(query)
         conn.commit()
